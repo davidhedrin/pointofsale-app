@@ -157,7 +157,7 @@
                     <li class="dropdown dropdown-user">
                         <a class="nav-link dropdown-toggle link" data-toggle="dropdown">
                             <img src="{{ asset('assets/img/admin-avatar.png') }}" />
-                            <span></span>Admin<i class="fa fa-angle-down m-l-5"></i></a>
+                            <span></span>{{ Auth::user()->user_type == "ADM" ? "Admin" : "User" }}<i class="fa fa-angle-down m-l-5"></i></a>
                         <ul class="dropdown-menu dropdown-menu-right">
                             <li><a class="dropdown-item" href="profile.html"><i class="fa fa-user"></i>Profile</a></li>
                             <li><a class="dropdown-item" href="profile.html"><i class="fa fa-cog"></i>Settings</a></li>
@@ -197,9 +197,9 @@
                     @if (Auth::user()->user_type === "ADM")
                     <li class="heading">SISTEM</li>
                     <li>
-                        <a href="icons.html">
-                            <i class="sidebar-item-icon fa fa-home"></i>
-                            <span class="nav-label">Jemaat</span>
+                        <a href="{{ route('all.customer') }}">
+                            <i class="sidebar-item-icon fa fa fa-user-circle-o" aria-hidden="true"></i>
+                            <span class="nav-label">Customers</span>
                         </a>
                     </li>
                     <li>
