@@ -115,6 +115,7 @@
                                     <th>No Phone</th>
                                     <th>Gander</th>
                                     <th>Tipe</th>
+                                    <th>Verified</th>
                                     <th class="text-center">Status</th>
                                     <th class="text-center" width="1">Action</th>
                                 </tr>
@@ -130,6 +131,7 @@
                                         <td style="font-style: {{ $us->no_phone == null ? "italic" : "" }}; color: {{ $us->no_phone == null ? "gray" : "" }};">{{ $us->no_phone != null ? $us->no_phone : "-Proses Pendaftaran-" }}</td>
                                         <td style="font-style: {{ $us->gander == null ? "italic" : "" }}; color: {{ $us->gander == null ? "gray" : "" }};">{{ $us->gander == "1" ? "Laki-laki" : ($us->gander == "2" ? "Perempuan" : "-Proses Pendaftaran-") }}</td>
                                         <td>{{ $us->user_type == "ADM" ? "Admin" : "User" }}</td>
+                                        <td class="text-{{ $us->email_verified_at != null ? "success" : "danger" }}">{{ $us->email_verified_at != null ? "YES" : "NO" }}</td>
                                         <td class="text-center">
                                             <span class="badge badge-{{ $us->flag_active == "Y" ? "success" : ($us->flag_active == "N" ? "danger" : "warning") }}">{{ $us->flag_active == "Y" ? "Active" : ($us->flag_active == "N" ? "Inactive" : "Panding") }}</span>
                                             @if ($us->email)

@@ -7,6 +7,7 @@ use App\Http\Livewire\RegisterComponent;
 use App\Http\Livewire\DashboardComponent;
 use App\Http\Livewire\UserManagementComponent;
 use App\Http\Livewire\CustomersComponent;
+use App\Http\Livewire\Auth\VerifryEmailComponent;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,8 +20,10 @@ use App\Http\Livewire\CustomersComponent;
 |
 */
 
+Auth::routes(['login' => false, 'register' => false, 'verify' => true]);
 
 Route::get('/logout', LogoutComponent::class)->name('logout');
+Route::get('/email/verify', VerifryEmailComponent::class)->middleware('auth')->name('verification.notice');
 //For All
 Route::middleware('guest')->group(function(){
     Route::get('/login', LoginComponent::class)->name('login');
