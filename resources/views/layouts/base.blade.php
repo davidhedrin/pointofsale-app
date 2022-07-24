@@ -197,6 +197,12 @@
                     @if (Auth::user()->user_type === "ADM")
                     <li class="heading">SISTEM</li>
                     <li>
+                        <a href="{{ route('all.products') }}">
+                            <i class="sidebar-item-icon fa fa-tags" aria-hidden="true"></i>
+                            <span class="nav-label">Product</span>
+                        </a>
+                    </li>
+                    <li>
                         <a href="{{ route('all.customer') }}">
                             <i class="sidebar-item-icon fa fa fa-user-circle-o" aria-hidden="true"></i>
                             <span class="nav-label">Customers</span>

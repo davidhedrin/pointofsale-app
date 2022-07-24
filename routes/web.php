@@ -7,6 +7,8 @@ use App\Http\Livewire\RegisterComponent;
 use App\Http\Livewire\DashboardComponent;
 use App\Http\Livewire\UserManagementComponent;
 use App\Http\Livewire\CustomersComponent;
+use App\Http\Livewire\ProductComponent;
+
 use App\Http\Livewire\Auth\VerifryEmailComponent;
 
 /*
@@ -37,4 +39,5 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function(){
 Route::middleware(['auth:sanctum', 'verified', 'adminrole'])->group(function(){
     Route::get('/user-management', UserManagementComponent::class)->name('all.users');
     Route::get('/customers', CustomersComponent::class)->name('all.customer');
+    Route::get('/all-product', ProductComponent::class)->name('all.products');
 });
