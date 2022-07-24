@@ -15,6 +15,7 @@ class CustomersComponent extends Component
 
     public $search = "";
     public $customer_code, $nama_lengkap, $no_phone, $alamat, $gander;
+    public $customer_id;
 
     public function updated($fields)
     {
@@ -61,6 +62,52 @@ class CustomersComponent extends Component
         $this->resetFromAddCustomer();
         $this->dispatchBrowserEvent('close-form-modal');
         session()->flash('msgAddCustomer', 'Customer baru telah berhasil ditambahkan!');
+    }
+
+    public function editDataCustomer(int $customerId)
+    {
+        $this->customer_id = $customerId;
+        $custom = Customers::find($customerId);
+        $this->customer_code = $custom->customer_code;
+        $this->nama_lengkap = $custom->nama_lengkap;
+        $this->no_phone = $custom->no_phone;
+        $this->alamat = $custom->alamat;
+        $this->gander = $custom->gander;
+    }
+    public function updateDataCustomer()
+    {
+        $this->validate([
+            'nama_lengkap' => 'required',
+            'no_phone' => 'required|numeric',
+            'alamat' => 'required',
+            'gander' => 'required',
+        ]);
+
+        $custom = Customers::find($this->customer_id);
+        $custom->nama_lengkap = $this->nama_lengkap;
+        $custom->no_phone = $this->no_phone;
+        $custom->alamat = $this->alamat;
+        $custom->gander = $this->gander;
+        $custom->save();
+        
+        $this->resetFromAddCustomer();
+        $this->dispatchBrowserEvent('close-form-modal');
+        session()->flash('msgAddCustomer', 'Customer telah berhasil diperbaharui!');
+    }
+
+    public function deleteCustomer(int $customerId, $cust_nama)
+    {
+        $this->nama_lengkap = $cust_nama;
+        $this->customer_id = $customerId;
+    }
+    public function destroyCustomer()
+    {
+        $custom = Customers::find($this->customer_id);
+        $custom->delete();
+
+        $this->resetFromAddCustomer();
+        $this->dispatchBrowserEvent('close-form-modal');
+        session()->flash('msgAddCustomer', 'Customer telah berhasil dihapus!');
     }
 
     public function loadAllData()

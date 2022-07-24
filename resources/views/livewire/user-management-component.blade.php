@@ -168,7 +168,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLongTitle">Generate New User</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button wire:click="resetFormAddUser" type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -316,7 +316,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLongTitle">Delete User</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button wire:click="resetFromEditUserModal" type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -325,7 +325,7 @@
                     <p>Yakin ingin menghapus user "{{ $namaUser != null ? $namaUser : "" }}"</p>
                     <form wire:submit.prevent="destroyUserClass">
                         <div class="form-group">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                            <button wire:click="resetFromEditUserModal" type="button" class="btn btn-secondary" data-dismiss="modal">
                                 Close
                             </button>
                             <button class="btn btn-primary" type="submit">Hapus</button>

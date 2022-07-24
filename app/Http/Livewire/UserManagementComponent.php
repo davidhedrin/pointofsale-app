@@ -45,6 +45,8 @@ class UserManagementComponent extends Component
         $this->conf_password = null;
         $this->tipe_user = null;
         $this->flag_active = null;
+        $this->user_id = null;
+        $this->namaUser = null;
     }
 
     public function generateRandomCode()

@@ -93,15 +93,13 @@
                 <div class="colz-2 mb-4">
                     <div class="card">
                         <img class="card-img-top" src="{{ asset('assets/img/users') }}/{{ $cus->gander == 1 ? "cus-male.png" : "cus-female.png" }}" />
-                        <div class="card-img-overlay text-center">
-                            <h5 class="card-title" style="font-weight: bold;">{{ $cus->customer_code }}</h5>
-                        </div>
-                        <div class="card-body">
-                            <div class="text-center">
-                                <div style="font-weight: bold; text-decoration: underline">{{ $cus->nama_lengkap }}</div>
-                                <div>{{ $cus->no_phone }}</div>
-                                <div>{{ $cus->alamat }}</div>
-                            </div>
+                        <div class="card-body text-center">
+                            <a href="javascript:void(0)" wire:click="editDataCustomer({{ $cus->id }})" data-toggle="modal" data-target="#modal-editData-customer"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                            <a href="javascript:void(0)" wire:click="deleteCustomer({{ $cus->id }}, '{{ $cus->nama_lengkap }}')" data-toggle="modal" data-target="#modal-delete-customer"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                            <div>{{ $cus->customer_code }}</div>
+                            <div style="font-weight: bold; text-decoration: underline">{{ $cus->nama_lengkap }}</div>
+                            <div>{{ $cus->no_phone }}</div>
+                            <div>{{ $cus->alamat }}</div>
                         </div>
                     </div>
                 </div>
@@ -160,21 +158,6 @@
         </div>
     </div>
 
-    {{-- <div class="ibox">
-        <div class="ibox-head flexbox">
-            <div class="ibox-title">Tabel Customers</div>
-        </div>
-        <div class="ibox-body">
-            <div class="card" style="width:280px;">
-                <img class="card-img-top" src="./assets/img/blog/macarons.jpg" />
-                <div class="card-body">
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a class="link-blue"><i class="fa fa-comments"></i> Comments</a>
-                </div>
-            </div>
-        </div>
-    </div> --}}
-
     <!-- Modal Add new user -->
     <div wire:ignore.self class="modal fade" id="modal-addNew-customer" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
         aria-hidden="true" data-backdrop="static">
@@ -182,7 +165,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLongTitle">Tambah Customer Baru</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button wire:click="resetFromAddCustomer" type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -246,11 +229,110 @@
             </div>
         </div>
     </div>
+    <!-- Modal Edit user -->
+    <div wire:ignore.self class="modal fade" id="modal-editData-customer" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Edit Customer</h5>
+                    <button wire:click="resetFromAddCustomer" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form wire:submit.prevent="updateDataCustomer">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="">Code Customer</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon"><i class="fa fa-qrcode" aria-hidden="true"></i></div>
+                                        <input wire:model="customer_code" class="form-control" type="text" placeholder="Customer Code" readonly>
+                                    </div>
+                                    @error('customer_code') <span class="text-danger">{{ $message }}</span> @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="">Gander</label>
+                                    <div wire:ignore.self class="input-group">
+                                        <div class="input-group-addon"><i class="fa fa-user"></i></div>
+                                        <select wire:model="gander" class="form-control">
+                                            <option value="">Pilih Gander</option>
+                                            <option value="1">Laki-laki</option>
+                                            <option value="2">Perempuan</option>
+                                        </select>
+                                    </div>
+                                    @error('gander') <span class="text-danger">{{ $message }}</span> @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Nama Lengkap</label>
+                            <div class="input-group">
+                                <div class="input-group-addon"><i class="fa fa-user"></i></div>
+                                <input wire:model="nama_lengkap" class="form-control" type="text" placeholder="Masukkan Nama Lengkap">
+                            </div>
+                            @error('nama_lengkap') <span class="text-danger">{{ $message }}</span> @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="">No Telepon</label>
+                            <div class="input-group">
+                                <div class="input-group-addon"><i class="fa fa-user"></i></div>
+                                <input wire:model="no_phone" class="form-control" type="text" placeholder="Masukkan No Telepon">
+                            </div>
+                            @error('no_phone') <span class="text-danger">{{ $message }}</span> @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="">Alamat</label>
+                            <div class="input-group">
+                                <div class="input-group-addon"><i class="fa fa-user"></i></div>
+                                <textarea wire:model="alamat" class="form-control" id="" rows="3" placeholder="Masukkan Alamat Domisili"></textarea>
+                            </div>
+                            @error('alamat') <span class="text-danger">{{ $message }}</span> @enderror
+                        </div>
+                        <div class="form-group text-right">
+                            <button class="btn btn-primary" type="submit">Simpan</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Delete User -->
+    <div wire:ignore.self class="modal fade" id="modal-delete-customer" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Delete User</h5>
+                    <button wire:click="resetFromAddCustomer" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div wire:ignore.self class="modal-body text-center">
+                    <h5 class="mt-2">Konfirmasi Hapus!</h5>
+                    <p>Yakin ingin menghapus user "{{ $nama_lengkap != null ? $nama_lengkap : "" }}"</p>
+                    <form wire:submit.prevent="destroyCustomer">
+                        <div class="form-group">
+                            <button wire:click="resetFromAddCustomer" type="button" class="btn btn-secondary" data-dismiss="modal">
+                                Close
+                            </button>
+                            <button class="btn btn-primary" type="submit">Hapus</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>
     window.addEventListener('close-form-modal', event => {
         $('#modal-addNew-customer').modal('hide');
+        $('#modal-editData-customer').modal('hide');
+        $('#modal-delete-customer').modal('hide');
     });
 </script>
 @push('scripts')
