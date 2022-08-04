@@ -15,7 +15,7 @@ class VerifryEmailComponent extends Component
         $user = Auth::user();
         $throttleKey = $user->email. '|' .request()->ip();
         
-        if(RateLimiter::tooManyAttempts($throttleKey, 1)){
+        if(RateLimiter::tooManyAttempts($throttleKey, 2)){
             $seconds  = RateLimiter::availableIn($throttleKey);
 
             session()->flash('msgEmailVerifyLimit', 'Maaf, percobaan kirim email telah berhasil, coba lagi dalam waktu');
