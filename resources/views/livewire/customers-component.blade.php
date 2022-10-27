@@ -24,11 +24,12 @@
                             <div>Your shop sales analytics</div>
                         </div>
                         <div class="d-inline-flex">
+                            <div class="px-3" style="border-right: 1px solid rgba(0,0,0,.1);"></div>
                             <div class="px-3">
                                 <div class="text-muted">WEEKLY SALES</div>
                                 <div>
                                     <span class="h2 m-0">240</span>
-                                    <span class="text-success ml-2"><i class="fa fa-level-up"></i> +25%</span>
+                                    <span class="text-warning ml-2"><i class="fa fa-level-down"></i> -12%</span>
                                 </div>
                             </div>
                         </div>
@@ -45,11 +46,12 @@
                             <div>Your shop sales analytics</div>
                         </div>
                         <div class="d-inline-flex">
+                            <div class="px-3" style="border-right: 1px solid rgba(0,0,0,.1);"></div>
                             <div class="px-3">
-                                <div class="text-muted">WEEKLY SALES</div>
+                                <div class="text-muted">WEEKLY INCOME</div>
                                 <div>
-                                    <span class="h2 m-0">240</span>
-                                    <span class="text-warning ml-2"><i class="fa fa-level-down"></i> -12%</span>
+                                    <span class="h2 m-0">$850</span>
+                                    <span class="text-success ml-2"><i class="fa fa-level-up"></i> +25%</span>
                                 </div>
                             </div>
                         </div>
@@ -61,27 +63,17 @@
 
     <div class="ibox">
         <div class="ibox-head flexbox">
-            <div class="ibox-title">Tabel Customers</div>
-            <div><button class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-addNew-customer">Add New</button></div>
-        </div>
-        <div class="ibox-body">
-            <div class="mb-1 mt-2">
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <div class="input-group-icon">
-                                <div class="input-icon"><i class="fa fa-search" aria-hidden="true"></i></div>
-                                <input wire:model="search" class="form-control" type="text" placeholder="Temukan Customer...">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                    </div>
-                    <div class="col-md-3">
+            <div class="ibox-title">
+                <div class="form-group pt-3">
+                    <div class="input-group-icon">
+                        <div class="input-icon"><i class="fa fa-search" aria-hidden="true"></i></div>
+                        <input wire:model="search" class="form-control" type="text" placeholder="Temukan Customer..." style="width: 300px">
                     </div>
                 </div>
             </div>
-
+            <div><button class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-addNew-customer">Add New</button></div>
+        </div>
+        <div class="ibox-body">
             @if(Session::has('msgAddCustomer'))
             <div class="alert alert-success alert-bordered fade show">
                 <button class="close" data-dismiss="alert" aria-label="Close" style="cursor: pointer">×</button>
@@ -90,12 +82,12 @@
             @endif
             <div class="row">
                 @forelse ($customers as $cus)
-                <div class="colz-2 mb-4">
+                <div class="col-md-2 mb-4">
                     <div class="card">
                         <img class="card-img-top" src="{{ asset('assets/img/users') }}/{{ $cus->gander == 1 ? "cus-male.png" : "cus-female.png" }}" />
                         <div class="card-body text-center">
                             <a href="javascript:void(0)" wire:click="editDataCustomer({{ $cus->id }})" data-toggle="modal" data-target="#modal-editData-customer"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                            <a href="javascript:void(0)" wire:click="deleteCustomer({{ $cus->id }}, '{{ $cus->nama_lengkap }}')" data-toggle="modal" data-target="#modal-delete-customer"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                            <a href="javascript:void(0)" wire:click="deleteCustomer({{ $cus->id }}, '{{ $cus->nama_lengkap }}')" data-toggle="modal" data-target="#modal-delete-customer" class="text-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                             <div>{{ $cus->customer_code }}</div>
                             <div style="font-weight: bold; text-decoration: underline">{{ $cus->nama_lengkap }}</div>
                             <div>{{ $cus->no_phone }}</div>

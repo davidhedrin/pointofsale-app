@@ -24,13 +24,7 @@
                             <div>Your shop sales analytics</div>
                         </div>
                         <div class="d-inline-flex">
-                            <div class="px-3" style="border-right: 1px solid rgba(0,0,0,.1);">
-                                <div class="text-muted">WEEKLY INCOME</div>
-                                <div>
-                                    <span class="h2 m-0">$850</span>
-                                    <span class="text-success ml-2"><i class="fa fa-level-up"></i> +25%</span>
-                                </div>
-                            </div>
+                            <div class="px-3" style="border-right: 1px solid rgba(0,0,0,.1);"></div>
                             <div class="px-3">
                                 <div class="text-muted">WEEKLY SALES</div>
                                 <div>
@@ -52,18 +46,12 @@
                             <div>Your shop sales analytics</div>
                         </div>
                         <div class="d-inline-flex">
-                            <div class="px-3" style="border-right: 1px solid rgba(0,0,0,.1);">
+                            <div class="px-3" style="border-right: 1px solid rgba(0,0,0,.1);"></div>
+                            <div class="px-3">
                                 <div class="text-muted">WEEKLY INCOME</div>
                                 <div>
                                     <span class="h2 m-0">$850</span>
                                     <span class="text-success ml-2"><i class="fa fa-level-up"></i> +25%</span>
-                                </div>
-                            </div>
-                            <div class="px-3">
-                                <div class="text-muted">WEEKLY SALES</div>
-                                <div>
-                                    <span class="h2 m-0">240</span>
-                                    <span class="text-warning ml-2"><i class="fa fa-level-down"></i> -12%</span>
                                 </div>
                             </div>
                         </div>
@@ -77,26 +65,17 @@
         <div class="col-lg-12">
             <div class="ibox">
                 <div class="ibox-head flexbox">
-                    <div class="ibox-title">Tabel User</div>
-                    <div><button class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-addNew-user">Add New</button></div>
-                </div>
-                <div class="ibox-body">
-                    <div class="mb-1 mt-2">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <div class="input-group-icon">
-                                        <div class="input-icon"><i class="fa fa-search" aria-hidden="true"></i></div>
-                                        <input wire:model="search" class="form-control" type="text" placeholder="Temukan User...">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                            </div>
-                            <div class="col-md-3">
+                    <div class="ibox-title">
+                        <div class="form-group pt-3">
+                            <div class="input-group-icon">
+                                <div class="input-icon"><i class="fa fa-search" aria-hidden="true"></i></div>
+                                <input wire:model="search" class="form-control" type="text" placeholder="Temukan User..." style="width: 300px">
                             </div>
                         </div>
                     </div>
+                    <div><button class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-addNew-user">Add New</button></div>
+                </div>
+                <div class="ibox-body">
 
                     @if(Session::has('msgAddUser'))
                     <div class="alert alert-success alert-bordered fade show">
@@ -144,7 +123,7 @@
                                         </td>
                                         <td class="text-center">
                                             <a href="javascript:void(0)" wire:click="editUserClass({{ $us->id }})" data-toggle="modal" data-target="#modal-editData-user"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                                            <a href="javascript:void(0)" wire:click="deleteUserClass({{ $us->id }}, '{{ $us->name }}')" data-toggle="modal" data-target="#modal-delete-user"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                            <a href="javascript:void(0)" wire:click="deleteUserClass({{ $us->id }}, '{{ $us->name }}')" data-toggle="modal" data-target="#modal-delete-user" class="text-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                                         </td>
                                     </tr>
                                 @empty

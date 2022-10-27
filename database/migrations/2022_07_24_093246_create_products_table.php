@@ -19,10 +19,11 @@ return new class extends Migration
             $table->string('kode_produk')->unique();
             $table->string('nama_produk');
             $table->string('merk_produk');
-            $table->integer('harga_beli');
-            $table->integer('harga_jual');
+            $table->float('harga_beli');
+            $table->float('harga_jual');
             $table->integer('stok_produk');
             $table->string('image_product')->nullable();
+            $table->string('flag_active', 1)->nullable();
             $table->timestamps();
             $table->foreign('category_id')->references('id')->on('categorys')->onDelete('SET NULL')->onUpdate('cascade');
         });
